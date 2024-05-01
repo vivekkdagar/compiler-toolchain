@@ -1,0 +1,8 @@
+# ninja log v5
+1	408	1714571472674571721	CMakeFiles/left_factoring_cfg.dir/source/CFG.cpp.o	d03029097bc82719
+0	19	1714578323677419491	build.ninja	44ec4b0c3513c07a
+1	531	1714571939993723443	CMakeFiles/left_factoring_cfg.dir/main.cpp.o	3efa5f7c8c607a2d
+0	11	1714571480530461184	CMakeFiles/left_factoring_cfg.dir/LeftFactor.cpp.o	ea3842d49528c6ab
+0	669	1714571927041822374	CMakeFiles/left_factoring_cfg.dir/source/LeftFactorer.cpp.o	50fc68f9dee35c91
+531	588	1714571940049723018	left_factoring_cfg	c1fecf364bc39656
+0	414	1714563508622371812	CMakeFiles/left_factoring_cfg.dir/CFG.cpp.o	77cf8919db7cafa4
