@@ -22,10 +22,15 @@ void LeftRecursion::convert() {
     if (production.rhs[0][0] not_eq production.lhs)
         return;
 
+    char free = pickFree();
+    this->usedNonTerminals.insert(free);
+
+    if(free == '~') {
+        throw std::runtime_error("No non terminals are free");
+    }
+
     if (this->production.rhs.size() == 2) {
-        std::string suffix = production.rhs[0].substr(1, production.rhs[0].size());
-        char free = pickFree();
-        this->usedNonTerminals.insert(free);
+        std::string suffix = production.rhs[0].substr(1);
 
         rightRecursiveCFG.addRule(this->production.lhs, production.rhs[1] + free);
         rightRecursiveCFG.addRule(free, suffix + free);
@@ -35,8 +40,6 @@ void LeftRecursion::convert() {
     }
 
     if (this->production.rhs[1][0] not_eq this->production.lhs) {
-        char free = pickFree();
-        usedNonTerminals.insert(free);
         for (int i{1}; i < this->production.rhs.size(); i++) {
             rightRecursiveCFG.addRule(this->production.lhs, this->production.rhs[i] + free);
         }
@@ -48,10 +51,7 @@ void LeftRecursion::convert() {
         return;
     }
 
-    char free = pickFree();
-    usedNonTerminals.insert(free);
-
-    for (auto & rh : this->production.rhs) {
+    for (auto &rh: this->production.rhs) {
         if (rh[0] not_eq production.lhs) {
             rightRecursiveCFG.addRule(this->production.lhs, rh + free);
         }
@@ -63,7 +63,7 @@ void LeftRecursion::convert() {
         if (this->production.rhs[i][0] not_eq this->production.lhs) {
             break;
         } else {
-            std::string suffix = production.rhs[i].substr(1, production.rhs[i].size());
+            std::string suffix = production.rhs[i].substr(1);
             rightRecursiveCFG.addRule(free, suffix + free);
         }
     }
@@ -76,20 +76,15 @@ void LeftRecursion::rearrangeStartingWith(vector<std::string> &vec, char startCh
 }
 
 char LeftRecursion::pickFree() {
-    // Define the set of non-terminal characters
     std::string nonTerminals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    // Iterate through each non-terminal character
     for (char ch: nonTerminals) {
-        // Check if the character is used
         if (usedNonTerminals.find(ch) == usedNonTerminals.end()) {
-            // If not used, mark it as used and return it
             return ch;
         }
     }
 
-    // Return a default character if all non-terminals are used
-    return '~'; // You can return any default character here
+    return '~';
 }
 
 const CFG &LeftRecursion::getRightRecursiveCfg() const {

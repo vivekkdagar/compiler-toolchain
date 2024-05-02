@@ -6,7 +6,7 @@ using namespace std;
 int main() {
     rule obj;
     obj.lhs = 'S';
-    obj.rhs = {"S1", "S2", "S3", "Bd", "Be", "Bf"};
+    obj.rhs = {"S12","bD"};
     LeftRecursion g(obj);
     g.convert();
     cout << g.getRightRecursiveCfg();
